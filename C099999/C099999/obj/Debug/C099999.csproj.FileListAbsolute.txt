@@ -1,0 +1,17 @@
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\C099999.exe.config
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\C099999.exe
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\C099999.pdb
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\EntityFramework.dll
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\System.Data.SQLite.dll
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\EntityFramework.xml
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\System.Data.SQLite.xml
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\obj\Debug\C099999.csprojAssemblyReference.cache
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\obj\Debug\C099999.csproj.CoreCompileInputs.cache
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\obj\Debug\C099999.csproj.CopyComplete
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\obj\Debug\C099999.exe
+C:\Users\HP\Dropbox\Academic_Desk\ProgramCode\CsharpGameSQLite_Aug7\C099999\C099999\obj\Debug\C099999.pdb
