@@ -23,9 +23,11 @@ namespace Game
         
         public void CreatePlayers()
         {
-            for (int i = 0; i < 4; i++)
+            string[] PlayerNames = new String[3] { "Red", "Green", "Blue" };
+
+            for (int i = 0; i < 3; i++)
             {
-                Players.Add(new Player(10000, Convert.ToString(i)));
+                Players.Add(new Player(10000, PlayerNames[i]));
             }
         }
         public void Run()
@@ -88,10 +90,7 @@ namespace Game
         }
 
         public void PerformBuyTransaction() {
-            string BuyInstruction = "UPDATE GameBoard SET OwnerName = BUYER WHERE PropertyValue = PROP";
-            BuyInstruction = BuyInstruction.Replace("BUYER ", this.PlayerName);
-            BuyInstruction = BuyInstruction.Replace("PROP ", this.CurrentAddress);
-
+            string BuyInstruction = "UPDATE GameBoard SET OwnerName = '" + this.PlayerName + "' WHERE PropertyID = " + this.CurrentAddress ;
             Database.BuyProperty(this, BuyInstruction);     }
 
         public void PayRent(Player PropertyOwner)
@@ -133,7 +132,7 @@ namespace Game
             for (int i = 0; i < 100; i++)
             {
                 RecordToInsert = "INSERT INTO GameBoard(PropertyID, OwnerName, PropertyValue) VALUES(" + i + ", 'Bank', " + r.Next(100, 900) + ")";
-                Database.InsertData(Database.sqlite_conn, RecordToInsert);
+                Database.InsertData(RecordToInsert);
             }
         }
 
@@ -171,6 +170,7 @@ namespace Game
         {
             SQLiteCommand BuyPropertyCommand = sqlite_conn.CreateCommand();
             BuyPropertyCommand.CommandText = sqlStatement;
+            Console.WriteLine("The sql stmt is {0}", sqlStatement);
             BuyPropertyCommand.ExecuteNonQuery();
         }
 
@@ -179,7 +179,7 @@ namespace Game
             string Owner = "blank";
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
-            sqlite_cmd.CommandText = "SELECT OwnerName FROM GameBoard where PropertyID="+CurrentAddress;
+            sqlite_cmd.CommandText = "SELECT OwnerName FROM GameBoard where PropertyID = "+CurrentAddress;
             sqlite_datareader = sqlite_cmd.ExecuteReader();
 
             while (sqlite_datareader.Read())
