@@ -90,6 +90,9 @@ namespace Game
         }
 
         public void PerformBuyTransaction() {
+            // #TODO Verify that the OWNER is BANK!
+            // #TODO Create a BANK to transfer the Buyer's Money to upon purchase of the Property
+            // #DESIGN Do you want to consider adding a Use Case to allow a buyer to purchase a property from another Owner?
             string BuyInstruction = "UPDATE GameBoard SET OwnerName = '" + this.PlayerName + "' WHERE PropertyID = " + this.CurrentAddress ;
             Database.BuyProperty(this, BuyInstruction);     }
 
