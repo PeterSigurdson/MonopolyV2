@@ -29,7 +29,7 @@ namespace Game
         {
             for (int i = 0; i < 4; i++)
             {
-                Players.Add(new Player(10000));
+                Players.Add(new Player(10000, Convert.ToString(i)));
             }
         }
         public void Run()
@@ -39,10 +39,10 @@ namespace Game
             this.CreatePlayers();
             int n = -1;
             while (true)
-            {
-                n++;
-                Console.WriteLine("Player {0}'s Turn", n);
-                PlayGame((Player)Players[n]);
+            {   n++;
+                Player a = (Player)Players[n];
+                Console.WriteLine("Player {0}'s Turn", a.PlayerName);
+                PlayGame(a);
                 if (n > Players.Count - 2) { n = -1; }
                
             }
@@ -57,45 +57,27 @@ namespace Game
             this.AdvancePlayer(numberOfSpacesToMove, aPlayer);
             aPlayer.DisplayStatus();
 
-            if (aPlayer.CurrentAddress.PropertyOwner == null)
-            {
-                // present user with option to purchase
-                // if they try to purchase and do not have sufficient funds, back out of the transaction
-                aPlayer.BuyAProperty(aPlayer.CurrentAddress);
-            }
-            else
-            {
-                // else charge then rent
-                // 
-                // if The System tries to charge them RENT, and they have an INSUFFICIENT BALANCE, 
-                //  A. Transfer all their money to the property's owner
-                //  B. Inform them they are BANKRUPT.
-                //  C. Remove that Player Object from the Array List of Players
-            }
 
         }
 
-        //public void MovePlayer_inMemoryVersion(int HowManySpaces, Player aPlayer)
-        //{
-        //    // get a handle on the ARRAY INDEX NUMBER of the CURRENT ADDRESS for the player
-        //    int ARRAY_INDEX_CURRENT_ADDRESS = GameBoard.FindLocationOfProperty(aPlayer.CurrentAddress);
-        //    // ADD to that the number of spaces they want to move
-        //    int NewPlayerAddress_IndexLocation = ARRAY_INDEX_CURRENT_ADDRESS + HowManySpaces;
-        //    // figure out what PROPERTY corrsponds to that new index
-        //    aPlayer.CurrentAddress = (Property)GameBoard.MyGameBoard[NewPlayerAddress_IndexLocation];
-        //    // ASSIGN the player's current address to that new property object reference
-        //}
+        public void AdvancePlayer(int MoveHowManySpaces, Player aPlayer)
+        {
+            aPlayer.CurrentAddress += MoveHowManySpaces;
+            Console.WriteLine("{0} is now in space {1}", aPlayer.PlayerName, aPlayer.CurrentAddress);
+        }
     }
 
     class Player
     {
         public double CurrentBalance;
+        public string PlayerName;
         public int CurrentAddress;
         public ArrayList PropertiesOwned;
 
-        public Player(double InitialBalance)
+        public Player(double InitialBalance, string PName)
         {
             this.CurrentBalance = InitialBalance;
+            this.PlayerName = PName;
             this.CurrentAddress = 0;
         }
 
