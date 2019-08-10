@@ -53,7 +53,9 @@ namespace Game
             this.AdvancePlayer(numberOfSpacesToMove, aPlayer);
             aPlayer.DisplayStatus();
 
-
+            Console.WriteLine("Would you like to buy this Property? ");
+            string buy = Console.ReadLine();
+            if (buy.Equals("y")) { aPlayer.PerformBuyTransaction(); }
         }
 
         public void AdvancePlayer(int MoveHowManySpaces, Player aPlayer)
@@ -85,7 +87,8 @@ namespace Game
             if (Buy.Equals("y")) { this.PerformBuyTransaction(); }
         }
 
-        public void PerformBuyTransaction() { }
+        public void PerformBuyTransaction() {
+            Database.BuyProperty(aPlayer)        }
 
         public void PayRent(Player PropertyOwner)
         {
@@ -125,7 +128,6 @@ namespace Game
             // create 100 Properties on The Board
             for (int i = 0; i < 100; i++)
             {
-                // How can I put a INSERT statement to the GameBoard SQL Table here??
                 RecordToInsert = "INSERT INTO GameBoard(PropertyID, OwnerName, PropertyValue) VALUES(" + i + ", 'Bank', " + r.Next(100, 900) + ")";
                 Database.InsertData(Database.sqlite_conn, RecordToInsert);
             }
@@ -159,6 +161,11 @@ namespace Game
             }
             catch (Exception ex)
             { Console.WriteLine(ex.ToString()); }
+        }
+
+        public static voide BuyProperty(Player Buyer)
+        {
+
         }
 
         public static string GetPropertyOwner(int CurrentAddress)
