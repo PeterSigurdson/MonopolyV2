@@ -88,7 +88,11 @@ namespace Game
         }
 
         public void PerformBuyTransaction() {
-            Database.BuyProperty(this);     }
+            string BuyInstruction = "UPDATE GameBoard SET OwnerName = BUYER WHERE PropertyValue = PROP";
+            BuyInstruction = BuyInstruction.Replace("BUYER ", this.PlayerName);
+            BuyInstruction = BuyInstruction.Replace("PROP ", this.CurrentAddress);
+
+            Database.BuyProperty(this, BuyInstruction);     }
 
         public void PayRent(Player PropertyOwner)
         {
@@ -199,7 +203,6 @@ namespace Game
             SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = sqlStatement;
             sqlite_cmd.ExecuteNonQuery();
-
         }
 
         public static void ReadData()
