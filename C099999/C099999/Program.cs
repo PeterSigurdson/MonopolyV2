@@ -12,10 +12,6 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            // new GameManager().Run();
-            // Database.Driver();
-            Database.SetupDatabase();
-            // Database.ReadData(Database.sqlite_conn);
             GameManager gm = new GameManager();
             gm.Run();
         }
@@ -34,7 +30,7 @@ namespace Game
         }
         public void Run()
         {
-            Database.SetupDatabase();
+            Database.CreateConnection();
             //   GameBoard.SetupMyGameBoard();
             this.CreatePlayers();
             int n = -1;
@@ -64,6 +60,7 @@ namespace Game
         {
             aPlayer.CurrentAddress += MoveHowManySpaces;
             Console.WriteLine("{0} is now in space {1}", aPlayer.PlayerName, aPlayer.CurrentAddress);
+            Console.WriteLine("This property is owned by : {0} ", Database.GetPropertyOwner(aPlayer.CurrentAddress));
         }
     }
 
@@ -102,7 +99,7 @@ namespace Game
 
         public void DisplayStatus()
         {
-            Console.WriteLine("{0}", this.CurrentBalance);
+            Console.WriteLine("{0} has a balance of {1} ", this.PlayerName,  this.CurrentBalance);
         }
     }
 
@@ -151,24 +148,9 @@ namespace Game
     class Database
     {
         public static SQLiteConnection sqlite_conn;
-        public static void SetupDatabase()
+      
+        public static void CreateConnection()
         {
-            sqlite_conn = CreateConnection();
-        }
-       
-        public static void Driver()
-        {
-            sqlite_conn = CreateConnection();
-            //CreateTable(sqlite_conn);
-            //InsertData(sqlite_conn);
-            ReadData(sqlite_conn);
-        }
-
-        static SQLiteConnection CreateConnection()
-        {
-
-            SQLiteConnection sqlite_conn;
-            // Create a new database connection:
             sqlite_conn = new SQLiteConnection("Data Source= database.db; Version = 3; New = True; Compress = True; ");
             // Open the connection:
             try
@@ -177,14 +159,28 @@ namespace Game
             }
             catch (Exception ex)
             { Console.WriteLine(ex.ToString()); }
-            return sqlite_conn;
         }
 
-        public static void CreateTable(SQLiteConnection conn)
+        public static string GetPropertyOwner(int CurrentAddress)
+        {
+            string Owner = "blank";
+            SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT OwnerName FROM GameBoard where PropertyID="+CurrentAddress;
+            sqlite_datareader = sqlite_cmd.ExecuteReader();
+
+            while (sqlite_datareader.Read())
+            {
+                Owner = sqlite_datareader.GetString(0);
+            }
+            return Owner;
+        }
+
+        public static void CreateTable()
         {
             SQLiteCommand sqlite_cmd;
             string Createsql = "CREATE TABLE GameBoard (PropertyID INT, OwnerName VARCHAR(20), PropertyValue INT)";
-            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
         }
@@ -198,11 +194,11 @@ namespace Game
 
         }
 
-        public static void ReadData(SQLiteConnection conn)
+        public static void ReadData()
         {
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
-            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = "SELECT * FROM GameBoard";
 
             sqlite_datareader = sqlite_cmd.ExecuteReader();
@@ -212,7 +208,6 @@ namespace Game
                 string ownerName = sqlite_datareader.GetString(1);
                 int propertyValue = sqlite_datareader.GetInt16(2);
             }
-            conn.Close();
         }
     }
 }
