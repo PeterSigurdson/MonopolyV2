@@ -88,7 +88,7 @@ namespace Game
         }
 
         public void PerformBuyTransaction() {
-            Database.BuyProperty(aPlayer)        }
+            Database.BuyProperty(this);     }
 
         public void PayRent(Player PropertyOwner)
         {
@@ -163,9 +163,11 @@ namespace Game
             { Console.WriteLine(ex.ToString()); }
         }
 
-        public static voide BuyProperty(Player Buyer)
+        public static void BuyProperty(Player Buyer, string sqlStatement)
         {
-
+            SQLiteCommand BuyPropertyCommand = sqlite_conn.CreateCommand();
+            BuyPropertyCommand.CommandText = sqlStatement;
+            BuyPropertyCommand.ExecuteNonQuery();
         }
 
         public static string GetPropertyOwner(int CurrentAddress)
@@ -192,10 +194,9 @@ namespace Game
             sqlite_cmd.ExecuteNonQuery();
         }
 
-        public static void InsertData(SQLiteConnection conn, string sqlStatement)
+        public static void InsertData(string sqlStatement)
         {
-            SQLiteCommand sqlite_cmd;
-            sqlite_cmd = conn.CreateCommand();
+            SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = sqlStatement;
             sqlite_cmd.ExecuteNonQuery();
 
